@@ -1,12 +1,12 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from aiogram.types import ReplyKeyboardRemove
+from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup
 
 
 def reply_builder(
     text: str | list[str],
     sizes: int | list[int]=2,
     **kwargs
-) -> ReplyKeyboardBuilder:
+) -> ReplyKeyboardMarkup:
     builder = ReplyKeyboardBuilder()
 
     text = [text] if isinstance(text, str) else text

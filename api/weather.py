@@ -1,4 +1,4 @@
-import aiohttp
+import aiohttp, asyncio
 from config.settings import settings
 
 api_key = settings['weather-token']
@@ -10,10 +10,13 @@ async def get_current_weather(city: str) -> dict | None:
             async with session.get(url) as response:
                 response.raise_for_status()
                 data = await response.json()
-                return data
+                return {
+                    'weather': data['weather'][0],
+                    'main': data['main']
+                }
     except aiohttp.ClientResponseError as e:
         if e.status == 404:
-            print(f'Город {city} не был найден.')
+            return 0
         else:
             print(f'Error: {e}')
             with open("debug.txt", "a", encoding='utf-8') as f:
@@ -24,3 +27,6 @@ async def get_current_weather(city: str) -> dict | None:
         with open("debug.txt", "a", encoding='utf-8') as f:
             f.write(str(e))
         return None
+
+if __name__ == '__main__':
+    print(asyncio.run(get_current_weather('moscow')))
