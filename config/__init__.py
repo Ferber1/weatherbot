@@ -1,1 +1,1 @@
-from .config_reader import settings, commands
+from . import settings

@@ -1,8 +1,9 @@
+import asyncio
 from aiogram import Bot, Dispatcher
 
-from handlers.handlers import router
+from telegram.handlers.handlers import router
 
-from config.config_reader import settings
+from config.settings import settings
 
 #* Объект бота *#
 bot = Bot(settings['telegram-token'], parse_mode='html')
@@ -13,4 +14,5 @@ dp = Dispatcher()
 #* Инициализация других роутеров
 dp.include_router(router)
 
-dp.start_polling(bot)
+if __name__ == '__main__':
+    asyncio.run(dp.start_polling(bot))

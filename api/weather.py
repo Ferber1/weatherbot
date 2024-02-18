@@ -1,5 +1,5 @@
 import aiohttp
-from config.config_reader import settings
+from config.settings import settings
 
 api_key = settings['weather-token']
 

@@ -2,7 +2,8 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command, CommandStart
 
-from config import commands
+from config.settings import commands
+
 from api.weather import api_key
 
 router = Router()
@@ -13,6 +14,6 @@ async def _start(message: Message):
     await message.answer('ti gey')
 
 #* /weather *#
-@router.message(Command(commands[1], prefix='/!'))
+@router.message(Command(commands[1], prefix='/!', ignore_case=True))
 async def _weather(message: Message):
 	...
