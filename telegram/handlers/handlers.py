@@ -1,6 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import Message
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command
+from aiogram.fsm.context import FSMContext
 
 from config.settings import commands
 from settings import MAIN_PHRASE_ENG, MAIN_PHRASE_RUS, INFO_ERROR_RUS, INFO_ERROR_ENG, \
@@ -8,6 +9,8 @@ from settings import MAIN_PHRASE_ENG, MAIN_PHRASE_RUS, INFO_ERROR_RUS, INFO_ERRO
 
 from api.weather import get_current_weather
 from utils.keyboards import main_keyboard, main_keyboard_eng
+from utils.states import Form
+from utils.sending import send_weather
 
 router = Router()
 
@@ -22,60 +25,35 @@ async def _start(message: Message):
 
 #* /weather *#
 @router.message(Command(commands[1], prefix='/!', ignore_case=True))
-async def _weather(message: Message):
+async def _weather(message: Message, state: FSMContext):
 	if len(message.text.split()) >= 2: #* if city entered
 		city = message.text.split()[1:]
 		city = ' '.join(city)
-		info = await get_current_weather(city)
-		if info == 0: #* if info not found (None or 0)
-			if message.from_user.language_code == 'ru': #* russian language
-				return await message.answer(INFO_ERROR_RUS.format(city), reply_markup=main_keyboard)
-			#* else
-			return await message.answer(INFO_ERROR_ENG.format(city), reply_markup=main_keyboard_eng)
-		elif info is None:
-			if message.from_user.language_code == 'ru': #* russian language
-				return await message.answer(INFO_EXCEPTION_RUS, reply_markup=main_keyboard)
-			#* else
-			return await message.answer(INFO_EXCEPTION_ENG, reply_markup=main_keyboard_eng)
-		if message.from_user.language_code == 'ru': #* russian language
-			result = f'''
-💙 Погода в прекрасном городе <b>{city.capitalize()}</b>:
+  
+		return await send_weather(message, city)
 
-🤍 Описание: 
-В основном — {info['weather']['main']}
-Обстановка — {info['weather']['description']}
-
-🌡 Температура:
-{info['main']['temp']:.1f} °C — {'одевайтесь потеплее ❄!' if info['main']['temp'] < 0 else 'жарковато ☀!'}
-Ощущается как все {info['main']['feels_like']:.1f} °C.. 🎨
-Минимум: {info["main"]['temp_min']:.1f} °C 💄
-Максимум: {info["main"]['temp_max']:.1f} °C 🥟
-	
-'''
-			await message.answer(result, reply_markup=main_keyboard)
-			#* else
-		result = f'''
-💙 Weather in a beautiful city <b>{city.capitalize()}</b>:
-
-🤍 Description: 
-Basically — {info['weather']['main']}
-The situation is {info['weather']['description']}
-
-🌡 Temperature:
-{info['main']['temp']:.1f} °C — {'dress warmly ❄!' if info['main']['temp'] < 0 else 'it's a little hot'!'}
-Feels like everything {info['main']['feels_like']:.1f} °C.. 🎨
-Minimum: {info["main"]['temp_min']:.1f} °C 💄
-Maximum: {info["main"]['temp_max']:.1f} °C 🥟
-
-'''
-		return await message.answer(result, reply_markup=main_keyboard_eng)
+	await state.set_state(Form.city)
 	return (
-    await message.answer('Использование команды: /weather <b>«город»</b> 🐍')
-    if message.from_user.language_code == 'ru' else
-    await message.answer('Using command: /weather <b>«city»</b> 🐍')
-         )
+    	await message.answer('Хорошо, теперь введи город! ⌨')
+		if message.from_user.language_code == 'ru' else
+		await message.answer('Ok, now enter city! ⌨')
+    )
+	
 
 #* KEYBOARD [WEATHER]
-@router.message(F.text.in_(['Select city', 'Выбрать город']))
-async def k_weather(message: Message):
-    ...
+@router.message(F.text.in_(['🔎 Select city', '🔎 Выбрать город']))
+async def k_weather(message: Message, state: FSMContext):
+    await state.set_state(Form.city)
+    return (
+    	await message.answer('Хорошо, теперь введи город! ⌨')
+		if message.from_user.language_code == 'ru' else
+		await message.answer('Ok, now enter city! ⌨')
+    )
+
+#* INPUT CITY [WEATHER]
+@router.message(Form.city)
+async def i_weather(message: Message, state: FSMContext):
+    city = message.text
+    await state.clear()
+    await send_weather(message, city)
+
