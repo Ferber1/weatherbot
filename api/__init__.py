@@ -1,1 +1,1 @@
-from . import weather
+from . import weather, image
