@@ -5,12 +5,11 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
 from config.settings import commands
-from settings import MAIN_PHRASE_ENG, MAIN_PHRASE_RUS
+from telegram.settings import MAIN_PHRASE_ENG, MAIN_PHRASE_RUS
 
-from api.weather import get_current_weather
-from utils.keyboards import main_keyboard, main_keyboard_eng
-from utils.states import Form
-from utils.sending import send_weather, send_city_info
+from telegram.utils.keyboards import main_keyboard, main_keyboard_eng
+from telegram.utils.states import Form
+from telegram.utils.sending import send_weather, send_city_info
 
 main_router = Router()
 

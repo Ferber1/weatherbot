@@ -2,8 +2,8 @@ from datetime import datetime
 from aiogram.types import Message
 from api.weather import get_current_weather, get_info_city
 from api.image import get_random_image
-from settings import INFO_ERROR_ENG, INFO_ERROR_RUS, INFO_EXCEPTION_ENG, INFO_EXCEPTION_RUS
-from .keyboards import main_keyboard, main_keyboard_eng
+from telegram.settings import INFO_ERROR_ENG, INFO_ERROR_RUS, INFO_EXCEPTION_ENG, INFO_EXCEPTION_RUS
+from telegram.utils.keyboards import main_keyboard, main_keyboard_eng
 
 async def send_weather(message: Message, city: str) -> None:
     info = await get_current_weather(city)
