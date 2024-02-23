@@ -1,4 +1,3 @@
-import sys
 from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.filters import Command
@@ -81,18 +80,17 @@ async def k_info(message: Message, state: FSMContext):
 
 #. <--------------- INPUT (FORM) COMMANDS ---------------> .#
 
-
 #* INPUT [WEATHER]
 @main_router.message(Form.city_for_weather)
 async def i_weather(message: Message, state: FSMContext):
     city = message.text
     await state.clear()
-    await send_weather(message, city)
+    return await send_weather(message, city)
 
 
 #* INPUT [INFO]
 @main_router.message(Form.city_for_info)
-async def i_weather(message: Message, state: FSMContext):
+async def i_info(message: Message, state: FSMContext):
     city = message.text
     await state.clear()
-    await send_city_info(message, city)
+    return await send_city_info(message, city)

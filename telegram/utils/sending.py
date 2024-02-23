@@ -1,9 +1,13 @@
-from datetime import datetime
-from aiogram.types import Message
-from api.weather import get_current_weather, get_info_city
-from api.image import get_random_image
-from telegram.settings import INFO_ERROR_ENG, INFO_ERROR_RUS, INFO_EXCEPTION_ENG, INFO_EXCEPTION_RUS
+
+#TODO: (on new branch) ->  testing not sending main_keyboard permanently
 from telegram.utils.keyboards import main_keyboard, main_keyboard_eng
+from telegram.settings import INFO_ERROR_ENG, INFO_ERROR_RUS, INFO_EXCEPTION_ENG, INFO_EXCEPTION_RUS
+
+from datetime import datetime
+from vk.utils import sending
+from aiogram.types import Message
+
+from api.weather import get_current_weather, get_info_city
 
 async def send_weather(message: Message, city: str) -> None:
     info = await get_current_weather(city)
@@ -40,7 +44,7 @@ async def send_weather(message: Message, city: str) -> None:
 Направление: {info['wind']['deg']}°
 Порывы: {info['wind']['gust']} м/с 🌬
 '''
-        return await message.answer_photo(await get_random_image(0, 9), result, reply_markup=main_keyboard)
+        return await message.answer(result, reply_markup=main_keyboard)
     
 	#* else
     result = f'''
@@ -61,7 +65,9 @@ Speed: {info['wind']['speed']} m/s
 Direction: {info['wind']['deg']}°
 Gusts: {info['wind']['gust']} m/s 🌬
 '''
-    return await message.answer_photo(await get_random_image(0, 9), result, reply_markup=main_keyboard_eng)
+    return await message.answer(result, reply_markup=main_keyboard_eng)
+
+
 
 async def send_city_info(message: Message, city: str) -> None:
     city_info = await get_info_city(city)
@@ -81,7 +87,7 @@ async def send_city_info(message: Message, city: str) -> None:
     
     if message.from_user.language_code == 'ru':  #* russian language
         result = f'''
-💙 Информация о городе <b>{city_info['name'].capitalize()}</b>:
+💙 Информация о городе <b>{city.capitalize()}</b>:
 
 🌍 Координаты:
 Долгота: {city_info['lon']}
@@ -98,7 +104,7 @@ async def send_city_info(message: Message, city: str) -> None:
     
     #* else
     result = f'''
-💙 Information about the city <b>{city_info['name'].capitalize()}</b>:
+💙 Information about the city <b>{city.capitalize()}</b>:
 
 🌍 Coordinates:
 Longitude: {city_info['lon']}

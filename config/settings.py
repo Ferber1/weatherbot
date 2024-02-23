@@ -8,6 +8,7 @@ load_dotenv()
 settings = {
 	'weather-token': getenv('WEATHER-TOKEN'),
 	'telegram-token': getenv('TELEGRAM-TOKEN'),
+    'vk-token': getenv('VK-TOKEN'),
 	'img-token': getenv('IMG-TOKEN')
 }
 

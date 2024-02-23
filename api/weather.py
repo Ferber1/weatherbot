@@ -34,7 +34,7 @@ async def get_current_weather(city: str) -> dict | None:
         return None
 
 
-async def get_info_city(city: str) -> dict:
+async def get_info_city(city: str) -> dict | None:
     try:
         async with aiohttp.ClientSession() as session:
             #* get response

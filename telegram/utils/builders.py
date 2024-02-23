@@ -20,5 +20,3 @@ def reply_builder(
     builder.adjust(*sizes)
     return builder.as_markup(resize_keyboard=True, **kwargs)
 
-def reply_remove() -> ReplyKeyboardRemove:
-    return ReplyKeyboardRemove
