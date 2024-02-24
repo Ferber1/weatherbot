@@ -1,6 +1,5 @@
 
 #TODO: (on new branch) ->  testing not sending main_keyboard permanently
-from telegram.utils.keyboards import main_keyboard, main_keyboard_eng
 from telegram.settings import INFO_ERROR_ENG, INFO_ERROR_RUS, INFO_EXCEPTION_ENG, INFO_EXCEPTION_RUS
 
 from datetime import datetime
@@ -14,15 +13,15 @@ async def send_weather(message: Message, city: str) -> None:
 
     if info == 0: #* if city not found
         if message.from_user.language_code == 'ru': #* russian language
-            return await message.answer(INFO_ERROR_RUS.format(city), reply_markup=main_keyboard)
+            return await message.answer(INFO_ERROR_RUS.format(city))
 		#* else
-        return await message.answer(INFO_ERROR_ENG.format(city), reply_markup=main_keyboard_eng)
+        return await message.answer(INFO_ERROR_ENG.format(city))
 
     elif info is None: #* elif there is error
         if message.from_user.language_code == 'ru': #* russian language
-            return await message.answer(INFO_EXCEPTION_RUS, reply_markup=main_keyboard)
+            return await message.answer(INFO_EXCEPTION_RUS)
 		#* else
-        return await message.answer(INFO_EXCEPTION_ENG, reply_markup=main_keyboard_eng)
+        return await message.answer(INFO_EXCEPTION_ENG)
 
 
     if message.from_user.language_code == 'ru': #* russian language
@@ -44,7 +43,7 @@ async def send_weather(message: Message, city: str) -> None:
 Направление: {info['wind']['deg']}°
 Порывы: {info['wind']['gust']} м/с 🌬
 '''
-        return await message.answer(result, reply_markup=main_keyboard)
+        return await message.answer(result)
     
 	#* else
     result = f'''
@@ -65,7 +64,7 @@ Speed: {info['wind']['speed']} m/s
 Direction: {info['wind']['deg']}°
 Gusts: {info['wind']['gust']} m/s 🌬
 '''
-    return await message.answer(result, reply_markup=main_keyboard_eng)
+    return await message.answer(result)
 
 
 
@@ -74,15 +73,15 @@ async def send_city_info(message: Message, city: str) -> None:
 
     if city_info == 0: #* if city not found
         if message.from_user.language_code == 'ru': #* russian language
-            return await message.answer(INFO_ERROR_RUS.format(city), reply_markup=main_keyboard)
+            return await message.answer(INFO_ERROR_RUS.format(city))
 		#* else
-        return await message.answer(INFO_ERROR_ENG.format(city), reply_markup=main_keyboard_eng)
+        return await message.answer(INFO_ERROR_ENG.format(city))
 
     elif city_info is None: #* elif there is error
         if message.from_user.language_code == 'ru': #* russian language
-            return await message.answer(INFO_EXCEPTION_RUS, reply_markup=main_keyboard)
+            return await message.answer(INFO_EXCEPTION_RUS)
 		#* else
-        return await message.answer(INFO_EXCEPTION_ENG, reply_markup=main_keyboard_eng)
+        return await message.answer(INFO_EXCEPTION_ENG)
     
     
     if message.from_user.language_code == 'ru':  #* russian language
@@ -100,7 +99,7 @@ async def send_city_info(message: Message, city: str) -> None:
 Восход солнца: {datetime.fromtimestamp(city_info['sunrise']).strftime('%Y-%m-%d %H:%M:%S')}
 Закат солнца: {datetime.fromtimestamp(city_info['sunset']).strftime('%Y-%m-%d %H:%M:%S')}
 '''
-        return await message.answer(result, reply_markup=main_keyboard)
+        return await message.answer(result)
     
     #* else
     result = f'''
@@ -117,4 +116,4 @@ Country: {city_info['country']}
 Sunrise: {datetime.fromtimestamp(city_info['sunrise']).strftime('%Y-%m-%d %H:%M:%S')}
 Sunset: {datetime.fromtimestamp(city_info['sunset']).strftime('%Y-%m-%d %H:%M:%S')}
 '''
-    return await message.answer(result, reply_markup=main_keyboard_eng)
+    return await message.answer(result)

@@ -20,7 +20,3 @@ bot = Bot(
     labeler=labeler,
     state_dispenser=dispanser
     )
-
-#* Запуск бота
-if __name__ == '__main__':
-    asyncio.run(bot.run_polling())
