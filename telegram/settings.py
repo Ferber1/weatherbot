@@ -1,4 +1,4 @@
-BOT_DEVELOPER = 'legendmmx1' #* your TG (https://t.me/...) e.g "SANYA"
+BOT_DEVELOPER = 'NO_ENTERED' #* your TG (https://t.me/...) e.g "SANYA"
 
 MAIN_PHRASE_RUS = '''👋 Добро пожаловать в бота <b>WeatherBot</b>!\n\n— Здесь ты можешь <b>проверить погоду</b> в любом городе!💦\nПоехали: /weather | /info'''
 MAIN_PHRASE_ENG = '''👋 Welcome to the <b>WeatherBot</b> bot!\n\n— Here you can <b>check the weather</b> in any city!💦\nLet 's go: /weather | /info'''

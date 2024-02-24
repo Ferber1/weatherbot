@@ -1,4 +1,4 @@
-BOT_DEVELOPER = 'salmatov7' #* your VK (https://vk.com/...) e.g "SANYA"
+BOT_DEVELOPER = 'NO_ENTERED' #* your VK (https://vk.com/...) e.g "SANYA"
 
 MAIN_PHRASE_RUS = '''👋 Добро пожаловать в бота WeatherBot!\n\n— Здесь ты можешь проверить погоду в любом городе!💦\nПоехали: /weather | /info'''
 
