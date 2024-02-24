@@ -11,7 +11,7 @@ def keyboard_builder(
     keyboard = Keyboard(one_time=one_time)
     
     [
-		keyboard.add(Text(txt), color=KeyboardButtonColor[color]).row()
+		keyboard.add(Text(txt), color=KeyboardButtonColor[color])
 		for txt, color in buttons
 	]
     
@@ -26,7 +26,7 @@ def inline_builder(
     inline_keyboard = Keyboard(inline=True)
     
     [
-		inline_keyboard.add(Text(txt), color=KeyboardButtonColor[color]).row()
+		inline_keyboard.add(Text(txt), color=KeyboardButtonColor[color])
 		for txt, color in buttons
 	]
 

@@ -7,14 +7,14 @@ from vk.utils.states import dispanser
 
 from config.settings import settings
 
-#* Объект основного лейблера *#
+#* Object of main labeler *#
 labeler = BotLabeler()
 
-#* Настройка лейблера, загрузка дополнительного лейблера
+#* Labeler settings, download another labeler *#
 labeler.vbml_ignore_case = True 
 labeler.load(main_labeler)
 
-#* Объект бота *#
+#* Object of bot *#
 bot = Bot(
     token=settings['vk-token'],
     labeler=labeler,

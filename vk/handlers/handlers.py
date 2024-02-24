@@ -18,7 +18,8 @@ async def _start(message: Message):
     return await message.answer(MAIN_PHRASE_RUS, keyboard=main_keyboard)
 
 #* /weather
-@main_labeler.private_message(text=[f'/{commands[1]} <city>', f'!{commands[1]} <city>'])
+@main_labeler.private_message(text=[f'/{commands[1]} <city>', f'!{commands[1]} <city>',
+                                    f'/{commands[1]}', f'!{commands[1]}'])
 async def _weather(message: Message, city: str = None):
     if len(message.text.split()) >= 2: #* if city entered
         city = message.text.split()[1:]
@@ -32,7 +33,8 @@ async def _weather(message: Message, city: str = None):
     )
 
 #* /info
-@main_labeler.private_message(text=[f'/{commands[2]} <city>', f'!{commands[2]} <city>'])
+@main_labeler.private_message(text=[f'/{commands[2]} <city>', f'!{commands[2]} <city>',
+                                    f'/{commands[2]}', f'!{commands[2]} <city>'])
 async def _info(message: Message, city: str = None):
     if len(message.text.split()) >= 2: #* if city entered
         city = message.text.split()[1:]

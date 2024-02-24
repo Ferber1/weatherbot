@@ -34,7 +34,7 @@ async def send_weather(message: Message, city: str) -> None:
 🌬 Ветер:
 Скорость: {info['wind']['speed']} м/с
 Направление: {info['wind']['deg']}°
-Порывы: {info['wind']['gust']} м/с 🌬
+Порывы: {info['wind'].get('gust', '0')} м/с 🌬
 '''
     return await message.answer(result, keyboard=main_keyboard)
 
