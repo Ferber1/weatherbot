@@ -13,10 +13,10 @@ async def send_weather(message: Message, city: str) -> None:
     info = await get_current_weather(city)
 
     if info == 0: #* if city not found
-        return await message.answer(INFO_ERROR_RUS.format(city), keyboard=main_keyboard)
+        return await message.answer(INFO_ERROR_RUS.format(city))
     
     elif info is None: #* elif there is error
-        return await message.answer(INFO_EXCEPTION_RUS, keyboard=main_keyboard)
+        return await message.answer(INFO_EXCEPTION_RUS)
     
     result = f'''
 💙 Погода в прекрасном городе {city.capitalize()}:
@@ -36,16 +36,16 @@ async def send_weather(message: Message, city: str) -> None:
 Направление: {info['wind']['deg']}°
 Порывы: {info['wind'].get('gust', '0')} м/с 🌬
 '''
-    return await message.answer(result, keyboard=main_keyboard)
+    return await message.answer(result)
 
 async def send_city_info(message: Message, city: str) -> None:
     city_info = await get_info_city(city)
 
     if city_info == 0: #* if city not found
-        return await message.answer(INFO_ERROR_RUS.format(city), keyboard=main_keyboard)
+        return await message.answer(INFO_ERROR_RUS.format(city))
     
     elif city_info is None: #* elif there is error
-        return await message.answer(INFO_EXCEPTION_RUS, keyboard=main_keyboard)
+        return await message.answer(INFO_EXCEPTION_RUS)
     
     result = f'''
 💙 Информация о городе {city.capitalize()}:
@@ -61,4 +61,4 @@ async def send_city_info(message: Message, city: str) -> None:
 Восход солнца: {datetime.fromtimestamp(city_info['sunrise']).strftime('%Y-%m-%d %H:%M:%S')}
 Закат солнца: {datetime.fromtimestamp(city_info['sunset']).strftime('%Y-%m-%d %H:%M:%S')}
 '''
-    return await message.answer(result, keyboard=main_keyboard)
+    return await message.answer(result)
