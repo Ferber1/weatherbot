@@ -49,7 +49,7 @@
 
 <a id=base></a>
 ### Запуск единственного бота
-- Установите необходимую зависимость: `pip install <aiogram/telegram>` (aiogram - telegram, vkbottle - vk)
+- Установите необходимую зависимость: `pip install <aiogram/vkbottle>` (aiogram - telegram, vkbottle - vk)
 - Установите необходимую зависимость: `pip install aiohttp` (она необходима для запросов к API)
 - Установите необходимую зависимость: `pip install python-dotenv` (она необходима для получения переменных из `.env`)
 - Откройте папку желаемого бота (`telegram` или `vk`)
